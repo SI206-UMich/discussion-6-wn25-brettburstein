@@ -20,6 +20,20 @@ def load_csv(f):
     full_path = os.path.join(base_path, f)
     # use this 'full_path' variable as the file that you open
 
+    data = {}
+    
+    with open(full_path, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        header = next(reader)
+        
+        for row in reader:
+            year, month, value = row
+            if year not in data:
+                data[year] = {}
+            data[year][month] = value
+    
+    return data
+
 def get_annual_max(d):
     '''
     Params:
